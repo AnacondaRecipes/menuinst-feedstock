@@ -9,6 +9,8 @@ source:
   fn: menuinst-{{ version }}.tar.gz
   url: https://github.com/conda/menuinst/archive/{{ version }}.tar.gz
   sha256: {{ sha256 }}
+  patches:
+    - 0001-switch-admin-nonadmin-file.patch
 
 build:
   number: 1
@@ -24,6 +26,8 @@ build:
 requirements:
   build:
     - {{ compiler('cxx') }}
+    - patch  # [not win]
+    - m2-patch  # [win]
   host:
     - python
     - pip
