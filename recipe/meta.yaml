@@ -11,6 +11,7 @@ source:
 
 build:
   number: 0
+  skip: true  # [py<38]
   script_env:
     - SETUPTOOLS_SCM_PRETEND_VERSION={{ version }}
   script:
@@ -26,8 +27,8 @@ build:
     - copy "%SP_DIR%\\menuinst\\_legacy\cwp.py" "%PREFIX%\\"  # [win]
   skip_compile_pyc:  # [win]
     - cwp.py  # [win]
-  # entry_points:
-  #   - menuinst = menuinst.main:main
+  missing_dso_whitelist:
+    - '**/libswift*'  # [osx]
 
 requirements:
   build:
@@ -38,16 +39,20 @@ requirements:
     - python
     - pip
     - setuptools_scm
+    - wheel
   run:
     - python
 
 test:
+  requires:
+    - pip
   imports:
     - menuinst
     - menuinst.api
     - menuinst._legacy  # [win]
     - menuinst.platforms.win_utils.winshortcut  # [win]
   commands:
+    - pip check
     - SP_DIR="$(python -c 'import site; print(site.getsitepackages()[0])')"  # [osx]
     - test -f "${SP_DIR}/menuinst/data/appkit_launcher_arm64"    # [osx]
     - test -f "${SP_DIR}/menuinst/data/appkit_launcher_x86_64"   # [osx]
@@ -57,11 +62,19 @@ test:
 about:
   home: https://github.com/conda/menuinst/
   license: BSD-3-Clause AND MIT
+  license_family: BSD
   license_file:
     - LICENSE.txt
     - menuinst/_vendor/apipkg/LICENSE
   summary: cross platform install of menu items
+  description: |
+    This package provides cross platform menu item installation for conda packages.
+
+    If a conda package ships a menuinst JSON document under $PREFIX/Menu, conda will invoke
+    menuinst to process the JSON file and install the menu items in your operating system.
+    The menu items are removed when the package is uninstalled.
   doc_url: https://conda.github.io/menuinst/
+  dev_url: https://github.com/conda/menuinst/
 
 extra:
   recipe-maintainers:
