@@ -5,7 +5,6 @@ package:
   version: {{ version }}
 
 source:
-  fn: menuinst-{{ version }}.tar.gz
   url: https://github.com/conda/menuinst/archive/{{ version }}.tar.gz
   sha256: 5570465822b11a63b87cf890ee061f588d1fe085bfafee7f5ba83d7f650daadb
 
