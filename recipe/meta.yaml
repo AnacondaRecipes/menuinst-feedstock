@@ -45,6 +45,9 @@ requirements:
 test:
   requires:
     - pip
+    - pytest
+  files:
+    - tests
   imports:
     - menuinst
     - menuinst.api
@@ -57,6 +60,7 @@ test:
     - test -f "${SP_DIR}/menuinst/data/appkit_launcher_x86_64"   # [osx]
     - test -f "${SP_DIR}/menuinst/data/osx_launcher_arm64"       # [osx]
     - test -f "${SP_DIR}/menuinst/data/osx_launcher_x86_64"      # [osx]
+    - CI=1 pytest tests/ -vvv
 
 about:
   home: https://github.com/conda/menuinst/
