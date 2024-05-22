@@ -1,16 +1,15 @@
-{% set version = "2.0.2" %}
+{% set version = "2.1.0" %}
 
 package:
   name: menuinst
   version: {{ version }}
 
 source:
-  fn: menuinst-{{ version }}.tar.gz
   url: https://github.com/conda/menuinst/archive/{{ version }}.tar.gz
-  sha256: 2846d3435b13375fe9242a985f355c176ace7a31072c230bdd5b0bfd13367701
+  sha256: 5570465822b11a63b87cf890ee061f588d1fe085bfafee7f5ba83d7f650daadb
 
 build:
-  number: 1
+  number: 0
   skip: true  # [py<38]
   script_env:
     - SETUPTOOLS_SCM_PRETEND_VERSION={{ version }}
@@ -45,7 +44,13 @@ requirements:
 
 test:
   requires:
+    - conda
     - pip
+    - pydantic
+    - pytest
+    - pytest-mock
+  source_files:
+    - tests
   imports:
     - menuinst
     - menuinst.api
@@ -58,6 +63,9 @@ test:
     - test -f "${SP_DIR}/menuinst/data/appkit_launcher_x86_64"   # [osx]
     - test -f "${SP_DIR}/menuinst/data/osx_launcher_arm64"       # [osx]
     - test -f "${SP_DIR}/menuinst/data/osx_launcher_x86_64"      # [osx]
+    # Cannot run tests in test_schema.py because hypothesis-jsonschema is not on defaults
+    # Cannot run elevation test because Prefect user is admin
+    - pytest tests/ -vvv --ignore=tests/test_schema.py --ignore=tests/test_elevation.py
 
 about:
   home: https://github.com/conda/menuinst/
