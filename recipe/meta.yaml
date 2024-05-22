@@ -64,7 +64,8 @@ test:
     - test -f "${SP_DIR}/menuinst/data/osx_launcher_arm64"       # [osx]
     - test -f "${SP_DIR}/menuinst/data/osx_launcher_x86_64"      # [osx]
     # Cannot run tests in test_schema.py because hypothesis-jsonschema is not on defaults
-    - CI=1 pytest tests/ -vvv --ignore=tests/test_schema.py
+    # Cannot run elevation test because Prefect user is admin
+    - pytest tests/ -vvv --ignore=tests/test_schema.py --ignore=test_elevation
 
 about:
   home: https://github.com/conda/menuinst/
