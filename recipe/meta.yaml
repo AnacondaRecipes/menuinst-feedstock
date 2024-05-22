@@ -44,8 +44,11 @@ requirements:
 
 test:
   requires:
+    - conda
     - pip
+    - pydantic
     - pytest
+    - pytest-mock
   source_files:
     - tests
   imports:
@@ -60,7 +63,8 @@ test:
     - test -f "${SP_DIR}/menuinst/data/appkit_launcher_x86_64"   # [osx]
     - test -f "${SP_DIR}/menuinst/data/osx_launcher_arm64"       # [osx]
     - test -f "${SP_DIR}/menuinst/data/osx_launcher_x86_64"      # [osx]
-    - CI=1 pytest tests/ -vvv
+    # Cannot run tests in test_schema.py because hypothesis-jsonschema is not on defaults
+    - CI=1 pytest tests/ -vvv --ignore=tests/test_schema.py
 
 about:
   home: https://github.com/conda/menuinst/
