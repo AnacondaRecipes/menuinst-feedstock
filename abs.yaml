@@ -1,1 +1,6 @@
-aggregate_branch: 3.12
+build_env_vars:
+  ANACONDA_ROCKET_ENABLE_PY313 : yes
+channels:
+  - https://staging.continuum.io/prefect/fs/typing_extensions-feedstock/pr20/ad0948a
+  - https://staging.continuum.io/prefect/fs/pydantic-core-feedstock/pr7/12e4486
+  - https://staging.continuum.io/prefect/fs/pydantic-feedstock/pr16/1aec79e
