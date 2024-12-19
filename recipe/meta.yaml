@@ -44,7 +44,7 @@ requirements:
 
 test:
   requires:
-    - conda
+    # - conda
     - pip
     - pydantic
     - pytest
