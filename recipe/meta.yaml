@@ -32,7 +32,8 @@ build:
 requirements:
   build:
     - python
-    - {{ compiler('c') }}  # [win]
+    - {{ stdlib('c') }}      # [win]
+    - {{ compiler('c') }}    # [win]
     - {{ compiler('cxx') }}  # [win]
   host:
     - python
