@@ -67,6 +67,9 @@ test:
     - test -f "${SP_DIR}/menuinst/data/osx_launcher_x86_64"      # [osx]
     # Cannot run tests in test_schema.py because hypothesis-jsonschema is not on defaults
     # Cannot run elevation test because Prefect user is admin
+    # Create a .nonadmin file so that the menuinst tests
+    # do not try to run with admin privileges
+    - echo. > "%PREFIX%\\.nonadmin"  # [win]
     - pytest tests/ -vvv --ignore=tests/test_schema.py --ignore=tests/test_elevation.py
 
 
