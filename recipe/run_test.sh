@@ -1,6 +1,9 @@
 #!/bin/bash
 set -euxo pipefail
 
+# Pip check
+python -m pip check
+
 # Verify launcher files are present on macOS
 if [[ "$(uname)" == "Darwin" ]]; then
     SP_DIR="$(python -c 'import site; print(site.getsitepackages()[0])')"

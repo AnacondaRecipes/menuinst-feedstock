@@ -52,14 +52,12 @@ test:
     - pytest-mock
   source_files:
     - tests
-
   imports:
     - menuinst
     - menuinst.api
     - menuinst._legacy  # [win]
     - menuinst.platforms.win_utils.winshortcut  # [win]
-  commands:
-    - pip check
+  # Test commands are moved to run_test.bat and run_test.sh
 
 about:
   home: https://github.com/conda/menuinst/
