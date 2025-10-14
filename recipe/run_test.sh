@@ -2,7 +2,7 @@
 set -euxo pipefail
 
 # Verify launcher files are present on macOS
-if [[ "$(uname)" != "Darwin" ]]; then
+if [[ "$(uname)" == "Darwin" ]]; then
     SP_DIR="$(python -c 'import site; print(site.getsitepackages()[0])')"
     test -f "${SP_DIR}/menuinst/data/appkit_launcher_arm64"
     test -f "${SP_DIR}/menuinst/data/appkit_launcher_x86_64"
