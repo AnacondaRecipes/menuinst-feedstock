@@ -2,7 +2,7 @@
 set -euxo pipefail
 
 # Pip check
-python -m pip check
+$PYTHON -m pip check
 
 # Verify launcher files are present on macOS
 if [[ "$(uname)" == "Darwin" ]]; then
