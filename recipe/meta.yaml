@@ -28,6 +28,8 @@ build:
     - cwp.py  # [win]
   missing_dso_whitelist:
     - '**/libswift*'  # [osx]
+  entry_points:
+    - menuinst = menuinst.cli:main
 
 requirements:
   build:

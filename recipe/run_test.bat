@@ -10,8 +10,7 @@ echo. > "%PREFIX%\.nonadmin"
 IF %ERRORLEVEL% NEQ 0 EXIT /B %ERRORLEVEL%
 
 :: Run the tests
-:: Cannot run tests in test_schema.py
-:: hypothesis-jsonschema is not on defaults
-:: Cannot run others due to elevation requirements
+:: Cannot run tests in test_schema.py because hypothesis-jsonschema is not on defaults
+:: Cannot run others because privilege elevation is not possible on the build platform
 pytest tests\ -vvv --ignore=tests\test_schema.py --ignore=tests\test_elevation.py -k "not test_create_and_remove_shortcut"
 IF %ERRORLEVEL% NEQ 0 EXIT /B %ERRORLEVEL%
