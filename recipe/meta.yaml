@@ -48,8 +48,8 @@ requirements:
 test:
   requires:
     - pip
-    - conda
-    - pydantic >=2
+    - conda  # [not py==314]
+    - pydantic >=2  # [not py==314]
     - pytest
     - pytest-mock
   source_files:
