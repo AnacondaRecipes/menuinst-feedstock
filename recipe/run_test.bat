@@ -10,7 +10,7 @@ echo. > "%PREFIX%\.nonadmin"
 IF %ERRORLEVEL% NEQ 0 EXIT /B %ERRORLEVEL%
 
 :: Run tests only if Python < 3.14
-IF %PY_VERSION% LSS 314 (
+if "%PYTHON_VERSION%"!="3.14"
     :: Run the tests
     :: Cannot run tests in test_schema.py because hypothesis-jsonschema is not on defaults
     :: Cannot run others because privilege elevation is not possible on the build platform
