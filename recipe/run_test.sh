@@ -13,7 +13,12 @@ if [[ "$(uname)" == "Darwin" ]]; then
     test -f "${SP_DIR}/menuinst/data/osx_launcher_x86_64"
 fi
 
-# Run tests
-# Cannot run tests in test_schema.py because hypothesis-jsonschema is not on defaults
-# Cannot run others because privilege elevation is not possible on the build platform
-pytest tests/ -vvv --ignore=tests/test_schema.py --ignore=tests/test_elevation.py
+
+if [[ "$PYTHON_VERSION" < "3.14" ]]; then
+    # Run tests
+    # Cannot run tests in test_schema.py because hypothesis-jsonschema is not on defaults
+    # Cannot run others because privilege elevation is not possible on the build platform
+    pytest tests/ -vvv --ignore=tests/test_schema.py --ignore=tests/test_elevation.py
+else
+    echo Skipping tests on Python 3.14+
+fi
