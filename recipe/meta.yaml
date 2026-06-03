@@ -11,7 +11,7 @@ source:
 
 build:
   number: 0
-  skip: true  # [py<39]
+  skip: true  # [py<310]
   script:
     # Apparently these files make the post-build linkage analysis crash
     # and we should not need them on Windows
