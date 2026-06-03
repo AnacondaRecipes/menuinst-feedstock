@@ -45,6 +45,8 @@ requirements:
     - toml
   run:
     - python
+    - tomli  # [py<311]
+    - tomli-w
 
 test:
   source_files:
