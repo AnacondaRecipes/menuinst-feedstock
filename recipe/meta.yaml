@@ -1,5 +1,5 @@
 {% set name = "menuinst" %}
-{% set version = "2.5.1" %}
+{% set version = "2.5.2" %}
 
 package:
   name: {{ name }}
@@ -7,10 +7,13 @@ package:
 
 source:
   url: https://github.com/conda/{{ name }}/archive/{{ version }}.tar.gz
-  sha256: 332fa4f192af2ab42bb4f31ca143e107c91c0c3b4310fe54cec428ca4f31cf52
+  sha256: 079ea48b73530907881526240d0bda1cc012659baee344a61b62090d52465109
 
 build:
   number: 0
+  # menuinst ships prebuilt launcher .exe binaries copied verbatim;
+  # relocation would corrupt them. See conda/menuinst#507.
+  binary_relocation: false
   skip: true  # [py<310]
   script:
     # Apparently these files make the post-build linkage analysis crash
@@ -63,7 +66,7 @@ test:
     - pydantic >=2
     - pytest
     - pytest-mock
-  
+
 
 about:
   home: https://github.com/conda/menuinst
