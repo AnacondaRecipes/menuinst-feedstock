@@ -11,10 +11,9 @@ source:
 
 build:
   number: 0
-  dynamic_linking:
-    # menuinst ships prebuilt launcher .exe binaries copied verbatim;
-    # relocation would corrupt them. See conda/menuinst#507.
-    binary_relocation: false
+  # menuinst ships prebuilt launcher .exe binaries copied verbatim;
+  # relocation would corrupt them. See conda/menuinst#507.
+  binary_relocation: false
   skip: true  # [py<310]
   script:
     # Apparently these files make the post-build linkage analysis crash
@@ -67,7 +66,7 @@ test:
     - pydantic >=2
     - pytest
     - pytest-mock
-  
+
 
 about:
   home: https://github.com/conda/menuinst
