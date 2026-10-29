@@ -10,7 +10,7 @@ source:
   sha256: 079ea48b73530907881526240d0bda1cc012659baee344a61b62090d52465109
 
 build:
-  number: 0
+  number: 1
   # menuinst ships prebuilt launcher .exe binaries copied verbatim;
   # relocation would corrupt them. See conda/menuinst#507.
   binary_relocation: false
@@ -62,7 +62,7 @@ test:
   # Test commands are moved to run_test.bat and run_test.sh
   requires:
     - pip
-    - conda
+    - conda # [py<315] pending py315 conda build
     - pydantic >=2
     - pytest
     - pytest-mock
