@@ -10,7 +10,7 @@ source:
   sha256: 079ea48b73530907881526240d0bda1cc012659baee344a61b62090d52465109
 
 build:
-  number: 0
+  number: 1
   # menuinst ships prebuilt launcher .exe binaries copied verbatim;
   # relocation would corrupt them. See conda/menuinst#507.
   binary_relocation: false
@@ -25,7 +25,10 @@ build:
     - rm -f "{{ SRC_DIR }}/menuinst/data/appkit_launcher_*"  # [linux]
     - {{ PYTHON }} -m pip install . -vv --no-build-isolation --no-deps
     # menuinst v1 expects cwp.py in PREFIX; backwards compat fix
-    - copy "%SP_DIR%\\menuinst\\_legacy\cwp.py" "%PREFIX%\\"  # [win]
+    # Python 3.15 on Windows moved site-packages to lib\python\site-packages,
+    # so conda-build's %SP_DIR% no longer points at it (corrected in conda-build 26.9.0)
+    - copy "%SP_DIR%\\menuinst\\_legacy\cwp.py" "%PREFIX%\\"  # [win and py<315]
+    - copy "%PREFIX%\lib\\python\\site-packages\\menuinst\\_legacy\cwp.py" "%PREFIX%\\"  # [win and py>=315]
   skip_compile_pyc:  # [win]
     - cwp.py  # [win]
   missing_dso_whitelist:
@@ -62,7 +65,7 @@ test:
   # Test commands are moved to run_test.bat and run_test.sh
   requires:
     - pip
-    - conda
+    - conda # [py<315] pending py315 conda build
     - pydantic >=2
     - pytest
     - pytest-mock
