@@ -25,7 +25,10 @@ build:
     - rm -f "{{ SRC_DIR }}/menuinst/data/appkit_launcher_*"  # [linux]
     - {{ PYTHON }} -m pip install . -vv --no-build-isolation --no-deps
     # menuinst v1 expects cwp.py in PREFIX; backwards compat fix
-    - copy "%SP_DIR%\\menuinst\\_legacy\cwp.py" "%PREFIX%\\"  # [win]
+    # Python 3.15 on Windows moved site-packages to lib\python\site-packages,
+    # so conda-build's %SP_DIR% no longer points at it
+    - copy "%SP_DIR%\\menuinst\\_legacy\cwp.py" "%PREFIX%\\"  # [win and py<315]
+    - copy "%PREFIX%\lib\\python\\site-packages\\menuinst\\_legacy\cwp.py" "%PREFIX%\\"  # [win and py>=315]
   skip_compile_pyc:  # [win]
     - cwp.py  # [win]
   missing_dso_whitelist:
